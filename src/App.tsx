@@ -36,7 +36,11 @@ const AddScheduleForm: React.FC<{
       time: formData.time,
     };
 
-    setSchedule([...schedule, newRow]);
+    setSchedule([...schedule, newRow].sort((a, b) => {
+      const dateTimeA = moment(`${a.date} ${a.time}`, "YYYY-MM-DD HH:mm").valueOf();
+      const dateTimeB = moment(`${b.date} ${b.time}`, "YYYY-MM-DD HH:mm").valueOf();
+      return dateTimeA - dateTimeB;
+    }));
     setFormData({ description: "", date: "", time: "" });
   };
   return (
